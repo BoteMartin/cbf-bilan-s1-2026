@@ -1,0 +1,683 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BOTE × Cut By Fred · Bilan Email &amp; CRM · S1 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ground: #0E0D0B;
+    --ground-2: #121110;
+    --panel: #16140F;
+    --panel-line: rgba(200, 169, 110, 0.14);
+    --panel-line-2: rgba(200, 169, 110, 0.22);
+    --grid: rgba(200, 169, 110, 0.05);
+    --gold: #C8A96E;
+    --gold-bright: #E4C88C;
+    --gain: #8FBE85;
+    --gain-bright: #A9D89F;
+    --amber: #D3AE72;
+    --crit: #CE8A78;
+    --ink: #F2EEE4;
+    --ink-dim: #A7A093;
+    --ink-faint: #6E685C;
+    --ink-grey: #8A8172;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --display: "Chakra Petch", "JetBrains Mono", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--ground); color: var(--ink);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: var(--mono);
+    background: radial-gradient(1200px 700px at 78% -8%, rgba(200, 169, 110, 0.06), transparent 60%), var(--ground);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+  .deck { position: relative; width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; background: var(--ground-2); box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6); }
+
+  .slide { position: absolute; inset: 0; container-type: size; border: 1px solid var(--panel-line); overflow: hidden; isolation: isolate; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.34s ease; }
+  .slide.active { opacity: 1; visibility: visible; pointer-events: auto; }
+
+  .slide::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 3.4cqw 3.4cqw; z-index: 0; pointer-events: none;
+    -webkit-mask-image: radial-gradient(120% 120% at 70% 0%, #000 55%, transparent 100%);
+    mask-image: radial-gradient(120% 120% at 70% 0%, #000 55%, transparent 100%);
+  }
+  .slide.active::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12cqh; z-index: 6; pointer-events: none;
+    background: linear-gradient(180deg, transparent, rgba(200, 169, 110, 0.05) 62%, rgba(228, 200, 140, 0.12) 88%, transparent);
+    animation: scan 9s linear infinite; opacity: 0.7;
+  }
+  @keyframes scan { 0% { transform: translateY(-14cqh); } 100% { transform: translateY(105cqh); } }
+
+  .stage { position: relative; z-index: 2; height: 100%; padding: 5.2cqw 5.6cqw 6.2cqw; display: flex; flex-direction: column; }
+
+  .tick { position: absolute; width: 1cqw; height: 1cqw; border: 1px solid rgba(200, 169, 110, 0.4); z-index: 4; }
+  .tick.tl { top: 1.5cqw; left: 1.5cqw; border-right: 0; border-bottom: 0; }
+  .tick.tr { top: 1.5cqw; right: 1.5cqw; border-left: 0; border-bottom: 0; }
+  .tick.bl { bottom: 1.5cqw; left: 1.5cqw; border-right: 0; border-top: 0; }
+  .tick.br { bottom: 1.5cqw; right: 1.5cqw; border-left: 0; border-top: 0; }
+
+  .eyebrow { font-family: var(--mono); font-size: 1cqw; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+
+  .head-row { display: flex; justify-content: space-between; align-items: baseline; gap: 2cqw; }
+  .index-tag { font-family: var(--mono); font-size: 0.92cqw; letter-spacing: 0.24em; color: var(--ink-faint); text-transform: uppercase; }
+
+  .s-title { font-family: var(--display); font-weight: 700; font-size: 3.05cqw; line-height: 1.04; letter-spacing: -0.015em; color: var(--ink); margin: 1.6cqw 0 0; max-width: 24ch; text-wrap: balance; }
+  .s-title em { font-style: normal; color: var(--gold); }
+  .s-sub { font-family: var(--mono); font-size: 1.02cqw; letter-spacing: 0.02em; color: var(--ink-dim); margin-top: 0.9cqw; }
+  .s-sub b { color: var(--gold); font-weight: 500; }
+
+  .footer { position: absolute; left: 5.6cqw; bottom: 2.3cqw; z-index: 5; font-family: var(--mono); font-size: 0.86cqw; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); }
+  .footer .dotmark { color: var(--gold); }
+  .pageno { position: absolute; right: 5.6cqw; bottom: 2.3cqw; z-index: 5; font-family: var(--mono); font-size: 0.86cqw; letter-spacing: 0.18em; color: var(--ink-faint); }
+  .pageno b { color: var(--gold); }
+
+  /* Cover */
+  .cover { justify-content: space-between; }
+  .cover-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .wordmark { font-family: var(--display); font-weight: 700; font-size: 3.4cqw; line-height: 0.8; color: var(--ink); letter-spacing: -0.01em; }
+  .wordmark span { color: var(--gold); text-shadow: 0 0 1.8cqw rgba(200, 169, 110, 0.5); }
+  .status-chip { font-family: var(--mono); font-size: 0.86cqw; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-dim); border: 1px solid var(--panel-line); padding: 0.6cqw 1cqw; display: flex; align-items: center; gap: 0.7cqw; }
+  .led { width: 0.5cqw; height: 0.5cqw; border-radius: 50%; background: var(--gain); box-shadow: 0 0 0.7cqw var(--gain); animation: pulse 2.6s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .cover-mid { margin-top: auto; margin-bottom: auto; }
+  .cover-suptitle { font-family: var(--mono); font-weight: 600; font-size: 1.05cqw; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2cqw; display: flex; align-items: center; gap: 1.1cqw; }
+  .cover-suptitle::before { content: ""; width: 2.8cqw; height: 1px; background: var(--gold); display: inline-block; }
+  .cover-title { font-family: var(--display); font-weight: 700; font-size: 6.6cqw; line-height: 0.92; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
+  .cover-title em { font-style: normal; color: var(--gold); text-shadow: 0 0 2.4cqw rgba(200, 169, 110, 0.35); }
+  .cover-sub { font-family: var(--display); font-weight: 600; font-size: 2.6cqw; letter-spacing: 0.02em; color: var(--ink-dim); margin-top: 1.4cqw; }
+  .cover-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 2cqw; }
+  .meta-row { font-family: var(--mono); font-size: 0.98cqw; letter-spacing: 0.14em; color: var(--ink-dim); text-transform: uppercase; }
+  .meta-row .sep { color: var(--gold); margin: 0 0.7cqw; }
+  .byline { font-family: var(--mono); font-size: 0.98cqw; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); text-align: right; }
+  .byline b { color: var(--ink); font-weight: 600; }
+
+  /* Data marks */
+  .datamark { display: flex; align-items: baseline; gap: 0.3cqw; line-height: 0.9; }
+  .datamark .val { font-family: var(--display); font-weight: 700; font-size: 4.3cqw; letter-spacing: -0.02em; color: var(--gold-bright); text-shadow: 0 0 2cqw rgba(200, 169, 110, 0.34); }
+  .datamark .unit { font-family: var(--mono); font-weight: 500; font-size: 1.5cqw; color: var(--ink-dim); }
+  .gain .datamark .val { color: var(--gain-bright); text-shadow: 0 0 1.9cqw rgba(143, 190, 133, 0.32); }
+  .amberv .datamark .val { color: var(--amber); text-shadow: 0 0 1.9cqw rgba(211, 174, 114, 0.28); }
+
+  .spark { height: 2px; margin: 1.4cqw 0 1.2cqw; background: linear-gradient(90deg, var(--gold) 0%, rgba(200,169,110,0.12) 100%); }
+  .gain .spark { background: linear-gradient(90deg, var(--gain) 0%, rgba(143,190,133,0.1) 100%); }
+
+  .cards { margin-top: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--panel-line); border: 1px solid var(--panel-line); }
+  .card { position: relative; background: var(--ground-2); padding: 2cqw 1.9cqw 2.1cqw; display: flex; flex-direction: column; min-height: 0; }
+  .card-main { font-family: var(--mono); font-weight: 600; font-size: 1.16cqw; line-height: 1.42; color: var(--ink); margin: 0; }
+  .card-sub { font-family: var(--mono); font-weight: 400; font-size: 0.98cqw; line-height: 1.45; color: var(--ink-dim); margin: 0.85cqw 0 0; }
+
+  .verdict { margin-top: 1px; background: var(--ground-2); border: 1px solid var(--panel-line); border-top: 0; padding: 1.5cqw 1.9cqw; display: flex; align-items: center; gap: 1.4cqw; }
+  .verdict .label { font-family: var(--mono); font-size: 0.86cqw; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); white-space: nowrap; border-right: 1px solid var(--panel-line); padding-right: 1.4cqw; }
+  .verdict .txt { font-family: var(--display); font-weight: 600; font-size: 1.5cqw; color: var(--ink); }
+  .verdict .txt em { font-style: normal; color: var(--gold); }
+
+  /* Two-column body */
+  .cols2 { margin-top: 2.4cqw; display: grid; grid-template-columns: 1fr 1.05fr; gap: 3cqw; flex: 1; min-height: 0; }
+  .lede { font-family: var(--mono); font-size: 1.14cqw; line-height: 1.55; color: var(--ink-dim); max-width: 42ch; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+  .statlist { display: flex; flex-direction: column; gap: 1.9cqw; margin-top: 2.4cqw; }
+  .statline { display: flex; align-items: baseline; gap: 1.6cqw; }
+  .statline .big { font-family: var(--display); font-weight: 700; font-size: 3.2cqw; color: var(--ink); letter-spacing: -0.02em; min-width: 6.6cqw; }
+  .statline .big.gold { color: var(--gold-bright); text-shadow: 0 0 1.6cqw rgba(200,169,110,0.3); }
+  .statline .desc { font-family: var(--mono); font-size: 0.98cqw; line-height: 1.45; color: var(--ink-dim); }
+
+  .panel { background: var(--ground-2); border: 1px solid var(--panel-line); padding: 2.2cqw 2.2cqw 2.4cqw; display: flex; flex-direction: column; }
+  .panel-title { font-family: var(--mono); font-size: 0.9cqw; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.8cqw; display: flex; align-items: center; gap: 0.8cqw; }
+  .panel-title::before { content: ""; width: 0.45cqw; height: 0.45cqw; background: var(--gold); border-radius: 50%; box-shadow: 0 0 0.7cqw var(--gold); }
+  .checklist { display: flex; flex-direction: column; gap: 1.5cqw; }
+  .checkitem { display: flex; gap: 1.1cqw; font-family: var(--mono); font-size: 1cqw; line-height: 1.4; color: var(--ink-dim); }
+  .checkitem::before { content: ""; flex: none; width: 0.5cqw; height: 0.5cqw; margin-top: 0.55cqw; border-radius: 50%; background: var(--crit); box-shadow: 0 0 0.6cqw rgba(206,138,120,0.6); }
+  .checkitem.ok::before { background: var(--gold); box-shadow: 0 0 0.6cqw rgba(200,169,110,0.6); }
+  .checkitem strong { color: var(--ink); font-weight: 600; }
+
+  /* Feature */
+  .feature { margin-top: 2.4cqw; display: grid; grid-template-columns: 1fr 1.25fr; gap: 1px; background: var(--panel-line); border: 1px solid var(--panel-line); flex: 1; min-height: 0; }
+  .feature-main { background: var(--ground-2); padding: 2.4cqw; display: flex; flex-direction: column; }
+  .feature-main .fk { font-family: var(--mono); font-size: 0.86cqw; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-faint); }
+  .feature-main .fbig { font-family: var(--display); font-weight: 700; font-size: 6cqw; line-height: 0.9; color: var(--gold-bright); text-shadow: 0 0 2.4cqw rgba(200,169,110,0.32); margin: 0.6cqw 0 0.4cqw; letter-spacing: -0.03em; }
+  .feature-main .fdesc { font-family: var(--mono); font-size: 1.02cqw; line-height: 1.4; color: var(--ink); font-weight: 600; max-width: 20ch; }
+  .feature-main .fbul { list-style: none; margin: 1.6cqw 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.85cqw; }
+  .feature-main .fbul li { font-family: var(--mono); font-size: 0.9cqw; line-height: 1.35; color: var(--ink-dim); padding-left: 1.3cqw; position: relative; }
+  .feature-main .fbul li::before { content: "·"; position: absolute; left: 0.2cqw; color: var(--gold); }
+  .feature-side { display: grid; grid-template-rows: repeat(4, 1fr); gap: 1px; background: var(--panel-line); }
+  .fcard { background: var(--ground-2); padding: 1.5cqw 2cqw; display: flex; flex-direction: column; justify-content: center; }
+  .fcard h4 { font-family: var(--mono); font-size: 0.9cqw; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.5cqw; }
+  .fcard p { font-family: var(--mono); font-size: 0.92cqw; line-height: 1.4; color: var(--ink-dim); margin: 0; }
+  .fcard p b { color: var(--ink); font-weight: 600; }
+
+  /* Log rows */
+  .logrows { margin-top: 2.4cqw; display: flex; flex-direction: column; gap: 1px; background: var(--panel-line); border: 1px solid var(--panel-line); flex: 1; }
+  .logrow { background: var(--ground-2); display: grid; grid-template-columns: 3.4cqw 17cqw 1fr; align-items: center; gap: 1.8cqw; padding: 1.55cqw 2cqw; }
+  .logrow .lidx { font-family: var(--mono); font-size: 1.1cqw; font-weight: 600; color: var(--gold); letter-spacing: 0.1em; }
+  .logrow .lname { font-family: var(--display); font-weight: 600; font-size: 1.28cqw; color: var(--ink); }
+  .logrow .lname small { display: block; font-family: var(--mono); font-weight: 400; font-size: 0.78cqw; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 0.3cqw; }
+  .logrow .ldesc { font-family: var(--mono); font-size: 0.96cqw; line-height: 1.45; color: var(--ink-dim); }
+  .logrow .ldesc b { color: var(--ink); font-weight: 600; }
+  .logrow .ldesc .g { color: var(--gain); font-weight: 600; }
+
+  /* Scoreboard */
+  .scoreboard { margin-top: 2cqw; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1px; background: var(--panel-line); border: 1px solid var(--panel-line); flex: 1; min-height: 0; }
+  .qcard { background: var(--ground-2); padding: 1.9cqw 2.1cqw; display: flex; flex-direction: column; }
+  .qhead { display: flex; align-items: center; gap: 0.8cqw; font-family: var(--mono); font-size: 0.86cqw; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
+  .qhead .qdot { width: 0.5cqw; height: 0.5cqw; border-radius: 50%; }
+  .qdot.gold { background: var(--gold); box-shadow: 0 0 0.7cqw var(--gold); }
+  .qdot.gain { background: var(--gain); box-shadow: 0 0 0.7cqw var(--gain); }
+  .qdot.amber { background: var(--amber); box-shadow: 0 0 0.7cqw var(--amber); }
+  .qdot.crit { background: var(--crit); box-shadow: 0 0 0.7cqw var(--crit); }
+  .qval { display: flex; align-items: baseline; gap: 0.8cqw; margin: 0.7cqw 0 1cqw; }
+  .qval .n { font-family: var(--display); font-weight: 700; font-size: 3.1cqw; letter-spacing: -0.02em; color: var(--ink); }
+  .qval .delta { font-family: var(--mono); font-weight: 600; font-size: 1.15cqw; }
+  .delta.up { color: var(--gain); }
+  .delta.down { color: var(--crit); }
+  .delta.mix { color: var(--amber); }
+  .qohr { display: flex; flex-direction: column; gap: 0.5cqw; }
+  .qohr div { font-family: var(--mono); font-size: 0.9cqw; line-height: 1.35; color: var(--ink-dim); display: grid; grid-template-columns: 3.4cqw 1fr; gap: 0.6cqw; }
+  .qohr div span:first-child { color: var(--gold); font-weight: 600; letter-spacing: 0.08em; }
+  .qohr div b { color: var(--ink); font-weight: 600; }
+
+  /* Chart slide */
+  .chartwrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 3cqw; margin-top: 2.2cqw; flex: 1; min-height: 0; }
+  .constat { display: flex; flex-direction: column; gap: 1.8cqw; }
+  .cblock .ck { font-family: var(--mono); font-size: 0.82cqw; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6cqw; }
+  .cblock p { font-family: var(--mono); font-size: 1cqw; line-height: 1.5; color: var(--ink-dim); margin: 0; }
+  .cblock p b { color: var(--ink); font-weight: 600; }
+  .chartcol { display: flex; flex-direction: column; gap: 1.4cqw; min-height: 0; }
+  .chartcard { background: var(--ground-2); border: 1px solid var(--panel-line); padding: 1.7cqw 1.8cqw 1.2cqw; flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+  .chartcard .legend { display: flex; gap: 1.8cqw; justify-content: flex-end; margin-bottom: 0.6cqw; flex: none; }
+  .legend .lg { display: flex; align-items: center; gap: 0.6cqw; font-family: var(--mono); font-size: 0.82cqw; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); }
+  .legend .sw { width: 1.1cqw; height: 0.6cqw; border-radius: 1px; }
+  .chart-svg { flex: 1; min-height: 0; width: 100%; height: 100%; display: block; }
+  .levers { flex: none; background: var(--ground-2); border: 1px solid var(--panel-line); padding: 1.4cqw 1.8cqw; }
+  .levers h4 { font-family: var(--mono); font-size: 0.82cqw; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.8cqw; }
+  .levers ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.55cqw; }
+  .levers li { font-family: var(--mono); font-size: 0.92cqw; line-height: 1.35; color: var(--ink-dim); padding-left: 1.3cqw; position: relative; }
+  .levers li::before { content: "›"; position: absolute; left: 0.1cqw; color: var(--gold); }
+  .levers li b { color: var(--ink); font-weight: 600; }
+
+  /* Learnings */
+  .learn { margin-top: 2.6cqw; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--panel-line); border: 1px solid var(--panel-line); flex: 1; }
+  .lcard { background: var(--ground-2); padding: 2.4cqw 2.2cqw; display: flex; flex-direction: column; }
+  .lcard .lnum { font-family: var(--display); font-weight: 700; font-size: 3.4cqw; color: var(--gold); opacity: 0.55; line-height: 1; letter-spacing: -0.02em; }
+  .lcard h4 { font-family: var(--display); font-weight: 600; font-size: 1.5cqw; line-height: 1.15; color: var(--ink); margin: 1.4cqw 0 1.2cqw; }
+  .lcard p { font-family: var(--mono); font-size: 0.96cqw; line-height: 1.5; color: var(--ink-dim); margin: 0; }
+  .lcard p b { color: var(--ink); font-weight: 600; }
+  .lcard p .g { color: var(--gain); font-weight: 600; }
+
+  /* Roadmap timeline */
+  .timeline { margin-top: 3.2cqw; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6cqw; flex: 1; }
+  .timeline::before { content: ""; position: absolute; top: -1.4cqw; left: 1.4cqw; right: 1.4cqw; height: 1px; background: linear-gradient(90deg, var(--gold), rgba(200,169,110,0.2)); }
+  .tnode { position: relative; display: flex; flex-direction: column; }
+  .tnode::before { content: ""; position: absolute; top: calc(-1.4cqw - 0.45cqw); left: 0; width: 0.9cqw; height: 0.9cqw; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0.9cqw rgba(200,169,110,0.7); }
+  .tnode.todo::before { background: var(--ink-faint); box-shadow: none; }
+  .tnode .tm { font-family: var(--display); font-weight: 700; font-size: 1.4cqw; color: var(--ink); letter-spacing: 0.02em; margin-bottom: 1.2cqw; }
+  .tnode ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1cqw; }
+  .tnode li { font-family: var(--mono); font-size: 0.9cqw; line-height: 1.4; color: var(--ink-dim); padding-left: 1.2cqw; position: relative; }
+  .tnode li::before { content: ""; position: absolute; left: 0; top: 0.55cqw; width: 0.55cqw; height: 1px; background: var(--gold); }
+  .tnode li b { color: var(--gold); font-weight: 600; letter-spacing: 0.06em; }
+  .tnode li.pending { color: var(--ink-faint); font-style: italic; }
+  .tnode li.pending::before { background: var(--ink-faint); }
+  .tnode .tobj { margin-top: auto; padding-top: 1.3cqw; font-family: var(--mono); font-size: 0.82cqw; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border-top: 1px solid var(--panel-line); }
+  .tnode.todo .tobj { color: var(--ink-faint); }
+
+  /* Ask */
+  .asklist { margin-top: 2.4cqw; display: flex; flex-direction: column; gap: 1px; background: var(--panel-line); border: 1px solid var(--panel-line); flex: 1; }
+  .askrow { background: var(--ground-2); display: grid; grid-template-columns: 3.2cqw 1fr 16cqw; align-items: center; gap: 2cqw; padding: 1.5cqw 2.2cqw; }
+  .askrow .an { font-family: var(--display); font-weight: 700; font-size: 1.8cqw; color: var(--gold); opacity: 0.6; }
+  .askrow .amain h4 { font-family: var(--display); font-weight: 600; font-size: 1.4cqw; color: var(--ink); margin: 0 0 0.35cqw; }
+  .askrow .amain p { font-family: var(--mono); font-size: 0.92cqw; line-height: 1.4; color: var(--ink-dim); margin: 0; }
+  .askrow .alink { font-family: var(--mono); font-size: 0.9cqw; letter-spacing: 0.06em; color: var(--gold); text-align: right; }
+  .askrow .alink::before { content: "→ "; color: var(--ink-faint); }
+
+  .hud { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 50; display: flex; align-items: center; gap: 14px; font-family: var(--mono); background: rgba(14, 13, 11, 0.7); border: 1px solid var(--panel-line); padding: 7px 12px; backdrop-filter: blur(6px); }
+  .hud button { background: none; border: 0; color: var(--ink-dim); cursor: pointer; font-family: var(--mono); font-size: 15px; padding: 2px 6px; line-height: 1; }
+  .hud button:hover { color: var(--gold); }
+  .hud .counter { font-size: 11px; letter-spacing: 0.14em; color: var(--ink-dim); min-width: 54px; text-align: center; }
+  .hud .counter b { color: var(--gold); }
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--gold); z-index: 60; transition: width 0.34s ease; box-shadow: 0 0 8px rgba(200,169,110,0.6); }
+
+  :where(a, button, [tabindex]):focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide.active::after { animation: none; opacity: 0; }
+    .led { animation: none; }
+    .slide { transition: none; }
+  }
+</style>
+
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- ===== COVER ===== -->
+  <section class="slide active" aria-label="Couverture">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage cover">
+      <div class="cover-top">
+        <div class="wordmark">B<span>.</span></div>
+        <div class="status-chip"><span class="led"></span> S1 · 2026 · SYNC OK</div>
+      </div>
+      <div class="cover-mid">
+        <div class="cover-suptitle">BOTE × CUT BY FRED</div>
+        <h1 class="cover-title">Bilan <em>Email</em><br />&amp; CRM</h1>
+        <div class="cover-sub num">S1 2026</div>
+      </div>
+      <div class="cover-bottom">
+        <div class="meta-row">Présentation semestrielle <span class="sep">·</span> <span class="num">9 juillet 2026</span></div>
+        <div class="byline"><b>Martin</b><br />BOTE Agency</div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+  </section>
+
+  <!-- ===== 01 · EXECUTIVE SUMMARY ===== -->
+  <section class="slide" aria-label="Executive summary">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">01 · Executive Summary</div>
+        <div class="index-tag num">S1·2026 / 41.0% CA</div>
+      </div>
+      <h2 class="s-title">L'email <em>gagne du terrain</em> sur un marché qui se contracte.</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="datamark"><span class="val num" data-count="41.0" data-dec="1">41,0</span><span class="unit">%</span></div>
+          <div class="spark"></div>
+          <p class="card-main">L'email pèse désormais 41 % du CA Shopify.</p>
+          <p class="card-sub">vs 32,6 % en S1 2025, soit +8,4 pts.</p>
+        </article>
+        <article class="card gain">
+          <div class="datamark"><span class="unit" style="align-self:center">+</span><span class="val num" data-count="10.7" data-dec="1">10,7</span><span class="unit">%</span></div>
+          <div class="spark"></div>
+          <p class="card-main">469 k€ attribués à l'email, dans un CA à −11,9 %.</p>
+          <p class="card-sub">Croissance portée par les campagnes (+52 %) et les RC (+34 %).</p>
+        </article>
+      </div>
+      <div class="verdict"><span class="label">Verdict</span><span class="txt">Très belles performances sur <em>campagnes</em>, flows à compléter.</span></div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>01</b> / 09</div>
+  </section>
+
+  <!-- ===== 02 · OU ON ETAIT ===== -->
+  <section class="slide" aria-label="Ou on etait">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">02 · Où on était</div>
+        <div class="index-tag num">Reprise / 15·01·2026</div>
+      </div>
+      <h2 class="s-title">À la reprise, mi-janvier 2026 : un compte à <em>reconstruire</em>.</h2>
+      <div class="cols2">
+        <div>
+          <p class="lede">Historique de la collaboration, et ce qu'on a vu sur le compte en arrivant.</p>
+          <div class="statlist">
+            <div class="statline"><span class="big num gold">6,3<span style="font-size:0.55em"> %</span></span><span class="desc">capture pop-up à la reprise, vs 10-12 % lors de notre 1re collaboration</span></div>
+            <div class="statline"><span class="big num">24</span><span class="desc">campagnes envoyées sur l'ensemble du S1 2025</span></div>
+            <div class="statline"><span class="big num">32,6<span style="font-size:0.55em"> %</span></span><span class="desc">part de l'email dans le CA Shopify en S1 2025, le point de départ</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">État des lieux</div>
+          <div class="checklist">
+            <div class="checkitem"><span>Flows legacy 2025 encore actifs</span></div>
+            <div class="checkitem"><span>Stratégie récolte de leads à revoir (pop-up moins performant)</span></div>
+            <div class="checkitem"><span>Différents problèmes techniques sur le compte, manque de maintenance</span></div>
+            <div class="checkitem"><span>Cadence campagnes trop faible</span></div>
+            <div class="checkitem"><span>Base d'abonnés en décroissance chaque mois depuis juin 2025, à mitiger</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>02</b> / 09</div>
+  </section>
+
+  <!-- ===== 03 · CHANTIERS OPERATIONNELS ===== -->
+  <section class="slide" aria-label="Chantiers operationnels">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">03 · Chantiers opérationnels</div>
+        <div class="index-tag num">Production S1</div>
+      </div>
+      <h2 class="s-title">Chantiers opérationnels.</h2>
+      <div class="feature">
+        <div class="feature-main">
+          <div class="fk">Flows</div>
+          <div class="fbig num">55+</div>
+          <div class="fdesc">e-mails de flows créés.</div>
+          <ul class="fbul">
+            <li>Travail par parcours, en lien avec les best-sellers (Hydra Mask) ou le type de cheveux</li>
+            <li>Flows classiques et fondations repris (welcome générique, par parcours, checkout ab)</li>
+            <li>Chantier WhatsApp lancé fin S1</li>
+          </ul>
+        </div>
+        <div class="feature-side">
+          <div class="fcard"><h4>Stratégie</h4><p>Compréhension des différents parcours client, <b>processisation des temps forts</b>, interfaçage avec l'équipe CBF.</p></div>
+          <div class="fcard"><h4>DA à reprendre en main</h4><p>Modularisation, tests sur les livrables, <b>enablement par l'IA</b>.</p></div>
+          <div class="fcard"><h4>Campagnes</h4><p>Montée en volume, montée en qualité sur les livrables, <b>process weekly</b> avec les équipes opérationnelles.</p></div>
+          <div class="fcard"><h4>Prise en main des outils tierces</h4><p>Bigblue avec events livraison, diagnostic, WhatsApp.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>03</b> / 09</div>
+  </section>
+
+  <!-- ===== 04 · CHANTIERS NON-OPERATIONNELS ===== -->
+  <section class="slide" aria-label="Chantiers non-operationnels">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">04 · Chantiers non-opérationnels</div>
+        <div class="index-tag num">Conseil &amp; data</div>
+      </div>
+      <h2 class="s-title">Chantiers non-opérationnels.</h2>
+      <div class="logrows">
+        <div class="logrow"><span class="lidx num">01</span><span class="lname">Analyses data / cohortes<small>TTO · TBO · LTV</small></span><span class="ldesc">TTO, TBO, LTV sur les produits phares. Des infos qui nous permettent de <b>prendre des décisions opérationnelles</b> ou de donner des conseils stratégiques.</span></div>
+        <div class="logrow"><span class="lidx num">02</span><span class="lname">Review mining<small>Voix client</small></span><span class="ldesc">Analyse complète des avis clientes à l'onboarding. Le <b>wording réel des clientes</b> irrigue les copys et les sélections produit.</span></div>
+        <div class="logrow"><span class="lidx num">03</span><span class="lname">Conseil diagnostic capillaire<small>Benchmark → Octane</small></span><span class="ldesc">Travail de conseil sur les outils pour refaire le diagnostic, benchmarking, <b>Octane</b>.</span></div>
+        <div class="logrow"><span class="lidx num">04</span><span class="lname">WhatsApp via Kanal<small>Nouveau canal</small></span><span class="ldesc">Canal ouvert en juin, 1re campagne VIP+ (1 948 profils) : <span class="g">ROAS 48</span>. Flows à suivre sur le mois.</span></div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>04</b> / 09</div>
+  </section>
+
+  <!-- ===== 05 · SCOREBOARD ===== -->
+  <section class="slide" aria-label="Scoreboard">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">05 · Où on est</div>
+        <div class="index-tag num">S1 2026 vs S1 2025</div>
+      </div>
+      <h2 class="s-title">Le scoreboard, S1 2026 vs S1 2025.</h2>
+      <div class="scoreboard">
+        <div class="qcard">
+          <div class="qhead"><span class="qdot crit"></span> CA Shopify total</div>
+          <div class="qval"><span class="n num">1 147 k€</span><span class="delta down num">−11,9 %</span></div>
+          <div class="qohr">
+            <div><span>Obs</span><span>trafic site −25 % vs 2025, entrées de leads en repli.</span></div>
+            <div><span>Hyp</span><span>sujet acquisition / marché.</span></div>
+            <div><span>Reco</span><span><b>coordination AdBridge</b> + leviers de collecte (slide 06).</span></div>
+          </div>
+        </div>
+        <div class="qcard">
+          <div class="qhead"><span class="qdot gain"></span> CA attribué email</div>
+          <div class="qval"><span class="n num">469 k€</span><span class="delta up num">+10,7 %</span></div>
+          <div class="qohr">
+            <div><span>Obs</span><span>levier en croissance ; CA RC +34 %.</span></div>
+            <div><span>Hyp</span><span>effet cadence des campagnes, flows à pousser.</span></div>
+            <div><span>Reco</span><span><b>consolider au S2</b>, sans sur-sollicitation de la base.</span></div>
+          </div>
+        </div>
+        <div class="qcard">
+          <div class="qhead"><span class="qdot gold"></span> Part email du CA</div>
+          <div class="qval"><span class="n num">41,0 %</span><span class="delta up num">+8,4 pts</span></div>
+          <div class="qohr">
+            <div><span>Obs</span><span>vs 32,6 %, l'email amortit la baisse du CA global.</span></div>
+            <div><span>Hyp</span><span>gains assez conjoncturels, trop CRM-centric.</span></div>
+            <div><span>Reco</span><span><b>viser 42-45 %</b> au S2.</span></div>
+          </div>
+        </div>
+        <div class="qcard">
+          <div class="qhead"><span class="qdot amber"></span> Campagnes / Flows</div>
+          <div class="qval"><span class="n num">197 / 273 k€</span><span class="delta mix num">+52 % / −7,5 %</span></div>
+          <div class="qohr">
+            <div><span>Obs</span><span>100 % de la croissance vient des campagnes.</span></div>
+            <div><span>Hyp</span><span>flows de base stables, à travailler plus en profondeur au S2.</span></div>
+            <div><span>Reco</span><span><b>beaucoup de choses à mettre en place.</b></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>05</b> / 09</div>
+  </section>
+
+  <!-- ===== 06 · QUESTION DE LA BASE ===== -->
+  <section class="slide" aria-label="La question de la base">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">06 · La question de la base</div>
+        <div class="index-tag num">Renouvellement</div>
+      </div>
+      <h2 class="s-title">Une base qui se <em>renouvelle</em>.</h2>
+      <div class="chartwrap">
+        <div class="constat">
+          <div class="cblock"><div class="ck">Le constat</div><p><b>135 k → 132 k</b> profils dans la base (fév. → juin). On récolte mieux, mais le trafic est en baisse. On envoie plus d'emails, le volume de désinscription augmente.</p></div>
+          <div class="cblock"><div class="ck">Pourquoi</div><p>Entrées <b>−34,8 %</b> : conséquence directe du trafic site (−25 %). Cleaning volontaire et réveil d'une base sous-sollicitée en 2025.</p></div>
+        </div>
+        <div class="chartcol">
+          <div class="chartcard">
+            <div class="legend">
+              <span class="lg"><span class="sw" style="background:var(--ink-grey)"></span> S1 2025</span>
+              <span class="lg"><span class="sw" style="background:var(--gold)"></span> S1 2026</span>
+            </div>
+            <svg class="chart-svg" viewBox="0 0 480 300" role="img" aria-label="Entrées et sorties de la base, S1 2025 vs S1 2026">
+              <g stroke="rgba(200,169,110,0.10)" stroke-width="1">
+                <line x1="52" y1="250" x2="470" y2="250"></line>
+                <line x1="52" y1="187" x2="470" y2="187"></line>
+                <line x1="52" y1="124" x2="470" y2="124"></line>
+                <line x1="52" y1="61"  x2="470" y2="61"></line>
+              </g>
+              <g font-family="'JetBrains Mono', monospace" font-size="9" fill="#6E685C" text-anchor="end">
+                <text x="46" y="253">0</text>
+                <text x="46" y="190">10k</text>
+                <text x="46" y="127">20k</text>
+                <text x="46" y="64">30k</text>
+              </g>
+              <rect x="96"  y="41.8" width="52" height="208.2" rx="3" fill="#8A8172"></rect>
+              <rect x="156" y="114.4" width="52" height="135.6" rx="3" fill="#C8A96E"></rect>
+              <rect x="290" y="154.6" width="52" height="95.4" rx="3" fill="#8A8172"></rect>
+              <rect x="350" y="105.3" width="52" height="144.7" rx="3" fill="#C8A96E"></rect>
+              <g font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="600" text-anchor="middle" style="font-variant-numeric:tabular-nums">
+                <text x="122" y="34" fill="#A7A093">33 183</text>
+                <text x="182" y="107" fill="#E4C88C">21 636</text>
+                <text x="316" y="147" fill="#A7A093">15 208</text>
+                <text x="376" y="98" fill="#E4C88C">22 938</text>
+              </g>
+              <g font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="1.5" text-anchor="middle" fill="#A7A093">
+                <text x="152" y="272">ENTRÉES</text>
+                <text x="346" y="272">SORTIES</text>
+              </g>
+            </svg>
+          </div>
+          <div class="levers">
+            <h4>Les leviers S2</h4>
+            <ul>
+              <li>Améliorer la récolte en rajoutant des touchpoints</li>
+              <li>Mettre en place des campagnes leadgen avec AdBridge</li>
+              <li>Exemple : diagnostic, LP en temps fort</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>06</b> / 09</div>
+  </section>
+
+  <!-- ===== 07 · LEARNINGS ===== -->
+  <section class="slide" aria-label="Learnings">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">07 · Learnings</div>
+        <div class="index-tag num">3 apprentissages</div>
+      </div>
+      <h2 class="s-title">Trois apprentissages qui pilotent la suite.</h2>
+      <div class="learn">
+        <div class="lcard">
+          <div class="lnum num">01</div>
+          <h4>Le travail tripartite est nécessaire</h4>
+          <p><b>BOTE / CBF / AdBridge</b> : on doit avancer main dans la main, en continu. Acquisition, rétention et brand évoluent ensemble.</p>
+        </div>
+        <div class="lcard">
+          <div class="lnum num">02</div>
+          <h4>Tester de nouveaux outils et canaux paie</h4>
+          <p>Cf. les résultats du nouveau diagnostic. Premiers résultats <span class="g">WhatsApp</span> encourageants. Coûts limités, décidés avec des benchmarks.</p>
+        </div>
+        <div class="lcard">
+          <div class="lnum num">03</div>
+          <h4>La ZPD n'est plus un nice-to-have</h4>
+          <p>La machine à data CBF est lancée (diagnostic, touchpoints). Chaque information doit être réutilisée de façon systématisée, en flows comme en campagnes. Cf. #1.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>07</b> / 09</div>
+  </section>
+
+  <!-- ===== 08 · ROADMAP ===== -->
+  <section class="slide" aria-label="Roadmap S2">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">08 · Le plan pour y arriver</div>
+        <div class="index-tag num">Roadmap S2</div>
+      </div>
+      <h2 class="s-title">Roadmap S2.</h2>
+      <div class="timeline">
+        <div class="tnode">
+          <div class="tm">Juillet</div>
+          <ul>
+            <li><b>Macro</b> · Travail ZPD, consolider la data et reprendre Lifetimely en main</li>
+            <li><b>Micro</b> · Finaliser les flows ROIstes (Cart Ab / Browse Ab)</li>
+          </ul>
+          <div class="tobj">30 jours</div>
+        </div>
+        <div class="tnode todo">
+          <div class="tm">Août</div>
+          <ul>
+            <li class="pending"><b>Macro</b> · à compléter</li>
+            <li class="pending"><b>Micro</b> · à compléter</li>
+          </ul>
+          <div class="tobj">90 jours</div>
+        </div>
+        <div class="tnode todo">
+          <div class="tm">Sept / Oct</div>
+          <ul>
+            <li class="pending"><b>Macro</b> · à compléter</li>
+            <li class="pending"><b>Micro</b> · à compléter</li>
+          </ul>
+          <div class="tobj">90-180 jours</div>
+        </div>
+        <div class="tnode todo">
+          <div class="tm">Nov / Déc</div>
+          <ul>
+            <li class="pending"><b>Macro</b> · à compléter</li>
+            <li class="pending"><b>Micro</b> · à compléter</li>
+          </ul>
+          <div class="tobj">180 jours</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>08</b> / 09</div>
+  </section>
+
+  <!-- ===== 09 · L'ASK ===== -->
+  <section class="slide" aria-label="L'ask">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="stage">
+      <div class="head-row">
+        <div class="eyebrow">09 · L'ask</div>
+        <div class="index-tag num">5 demandes</div>
+      </div>
+      <h2 class="s-title">Ce dont BOTE a besoin pour tenir ces objectifs.</h2>
+      <div class="asklist">
+        <div class="askrow"><span class="an num">1</span><div class="amain"><h4>Data marge &amp; stocks en continu</h4><p>Comme le doc Soldes 2026 : piloter les mises en avant à la marge, pas au feeling.</p></div><span class="alink">braderie &amp; BFCM</span></div>
+        <div class="askrow"><span class="an num">2</span><div class="amain"><h4>Alignement AdBridge</h4><p>Rituel mensuel commun, retargeting réactivé, briefs de lancement partagés.</p></div><span class="alink">solde net d'abonnés ≥ 0</span></div>
+        <div class="askrow"><span class="an num">3</span><div class="amain"><h4>Décisions offre &amp; merchandising</h4><p>Format Hydra 250 ml, politique packs / bundles (cf. Respire).</p></div><span class="alink">RPR &amp; panier moyen</span></div>
+        <div class="askrow"><span class="an num">4</span><div class="amain"><h4>Calendrier temps forts consolidé</h4><p>Un brief unique par temps fort via le process TF, 3 semaines en amont.</p></div><span class="alink">part email ≥ 42 %</span></div>
+        <div class="askrow"><span class="an num">5</span><div class="amain"><h4>Assets &amp; accès</h4><p>Vidéos de Fred, photos Escapade Marseillaise, reconnexion Instagram.</p></div><span class="alink">WhatsApp &amp; nouveaux canaux</span></div>
+      </div>
+    </div>
+    <div class="footer">BOTE <span class="dotmark">×</span> CUT BY FRED <span class="dotmark">·</span> Bilan Email &amp; CRM <span class="dotmark">·</span> S1 2026</div>
+    <div class="pageno num"><b>09</b> / 09</div>
+  </section>
+
+</div>
+
+<div class="hud">
+  <button id="prev" aria-label="Slide précédente">‹</button>
+  <span class="counter"><b id="cur">01</b> / <span id="tot">10</span></span>
+  <button id="next" aria-label="Slide suivante">›</button>
+  <button id="fs" aria-label="Plein écran" title="Plein écran (F)">⤢</button>
+</div>
+
+<script>
+  (function () {
+    var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+    var idx = 0;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById("tot").textContent = String(slides.length);
+
+    function pad(n) { return (n < 10 ? "0" : "") + n; }
+    function fmt(n, dec) { return n.toFixed(dec).replace(".", ","); }
+
+    function animateCounts(slide) {
+      var marks = slide.querySelectorAll("[data-count]");
+      marks.forEach(function (el) {
+        var target = parseFloat(el.getAttribute("data-count"));
+        var dec = parseInt(el.getAttribute("data-dec"), 10);
+        if (reduce) { el.textContent = fmt(target, dec); return; }
+        var dur = 1100, start = null;
+        function step(ts) {
+          if (start === null) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(target * eased, dec);
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = fmt(target, dec);
+        }
+        el.textContent = fmt(0, dec);
+        requestAnimationFrame(step);
+      });
+    }
+
+    function show(n) {
+      idx = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach(function (s, i) { s.classList.toggle("active", i === idx); });
+      document.getElementById("cur").textContent = pad(idx + 1);
+      document.getElementById("progress").style.width = ((idx) / (slides.length - 1) * 100) + "%";
+      if (history && history.replaceState) { history.replaceState(null, "", "#" + (idx + 1)); }
+      animateCounts(slides[idx]);
+    }
+    function next() { show(idx + 1); }
+    function prev() { show(idx - 1); }
+
+    document.getElementById("next").addEventListener("click", next);
+    document.getElementById("prev").addEventListener("click", prev);
+    document.getElementById("fs").addEventListener("click", function () {
+      if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); next(); }
+      else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); prev(); }
+      else if (e.key === "Home") { show(0); }
+      else if (e.key === "End") { show(slides.length - 1); }
+      else if (e.key === "f" || e.key === "F") { if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); } }
+    });
+
+    var startHash = parseInt((location.hash || "").replace("#", ""), 10);
+    show(isNaN(startHash) ? 0 : startHash - 1);
+  })();
+</script>
